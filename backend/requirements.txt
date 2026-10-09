@@ -1,0 +1,16 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic>=2.8
+pandas>=2.2
+numpy>=1.26
+scikit-learn>=1.5
+joblib>=1.4
+python-dotenv>=1.0
+# Optional enhanced components (the deterministic local fallback works without them)
+xgboost>=2.1
+shap>=0.46
+chromadb>=0.5
+rank-bm25>=0.2
+langgraph>=0.2
+deepeval>=1.0
+pytest>=8.0

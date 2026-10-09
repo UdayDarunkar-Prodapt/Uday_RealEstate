@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+database/*.db
+models/*.joblib
+data/*.csv
+data/*.jsonl
+chroma_db/
+frontend/node_modules/
+frontend/dist/
+.pytest_cache/
