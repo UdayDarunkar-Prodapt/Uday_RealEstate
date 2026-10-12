@@ -1,0 +1,120 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 7 0 R /F2 8 0 R /F3 9 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 4264 >>
+stream
+BT /F2 18 Tf 1 0 0 1 50 742 Tm (DeepEval Evaluation Report) Tj ET
+BT /F2 13 Tf 1 0 0 1 50 711 Tm (Report status) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 686 Tm (This report describes the DeepEval evaluation configured in the project. A live DeepEval) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 673 Tm (run was not performed while preparing this report, so no score, verdict, or mean score is) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 660 Tm (claimed. The configured evaluator calls Claude through the Anthropic API and may incur) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 647 Tm (provider usage charges. When run, the script prints the metric score and reason for each) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 634 Tm (sample case and the mean score.) Tj ET
+BT /F2 13 Tf 1 0 0 1 50 614 Tm (Evaluation objective) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 589 Tm (Assess whether a property recommendation uses the supplied property description, is) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 576 Tm (grounded in retrieved historical comparable-property evidence, communicates uncertainty,) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 563 Tm (and avoids unsupported or causal claims. DeepEval evaluates recommendation quality only;) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 550 Tm (it does not generate or change the predicted property value.) Tj ET
+BT /F2 13 Tf 1 0 0 1 50 530 Tm (Metric and configuration) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 505 Tm (Item   |   Configuration) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 493 Tm (---  |  ---) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 481 Tm (Framework   |   DeepEval) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 469 Tm (Metric   |   One GEval metric: Property Recommendation Quality) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 457 Tm (Criteria   |   Use the supplied property description; ground the estimate in historical) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 445 Tm (comparable evidence; identify uncertainty; avoid unsupported or causal claims.) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 433 Tm (Evaluation inputs   |   INPUT, ACTUALOUTPUT, and RETRIEVALCONTEXT) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 421 Tm (Score scale   |   DeepEval GEval score in the 0-1 range) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 409 Tm (Passing threshold   |   0.60) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 397 Tm (Model adapter   |   Claude via Anthropic Messages API) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 385 Tm (Model selection   |   DEEPEVALMODEL, otherwise PRIMARYLLMMODEL) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 373 Tm (Result interpretation   |   Score at or above 0.60 meets the threshold; below 0.60 is) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 361 Tm (below threshold.) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 342 Tm (No RAGAS metrics are implemented or reported. This report does not add additional DeepEval) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 329 Tm (metrics.) Tj ET
+BT /F2 13 Tf 1 0 0 1 50 309 Tm (Sample cases in the runner) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 284 Tm (The current runner evaluates two property descriptions against their generated valuation) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 271 Tm (and retrieved evidence:) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 251 Tm (1. 3 bedroom, 2 bathroom home in NAmes with 1800 sq ft, built 2005, quality 7) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 238 Tm (2. 4 bedroom, 3 bathroom home in CollgCr with 2400 sq ft, built 1998, quality 8) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 218 Tm (These are sample scenarios, not a labelled evaluation benchmark. Scores from these cases) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 205 Tm (should be interpreted as model-judge assessments of these examples, not a statistically) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 192 Tm (representative measure of market accuracy or retrieval quality.) Tj ET
+BT /F2 13 Tf 1 0 0 1 50 172 Tm (Results) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 147 Tm (Case   |   GEval score   |   Reason   |   Verdict) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 135 Tm (---  |  ---:  |  ---  |  ---) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 123 Tm (North Ames, 3 bedroom, 1,800 sq ft   |   Not run   |   Not available   |   Not available) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 111 Tm (College Creek, 4 bedroom, 2,400 sq ft   |   Not run   |   Not available   |   Not) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 99 Tm (available) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 87 Tm (Mean   |   Not run   |   Not available   |   Not available) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 68 Tm (No result is substituted from unit tests. The automated DeepEval tests mock the GEval) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 24 Tm (DeepEval Evaluation Report | Page 1 of 2) Tj ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 7 0 R /F2 8 0 R /F3 9 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 2497 >>
+stream
+BT /F1 9 Tf 1 0 0 1 50 742 Tm (scorer to check endpoint formatting, threshold wiring, and graceful failure behavior;) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 729 Tm (mocked scores are not live evaluation results.) Tj ET
+BT /F2 13 Tf 1 0 0 1 50 709 Tm (Failure handling) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 684 Tm (The API evaluator returns Evaluation unavailable with a null score and a reason if the) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 671 Tm (Anthropic key/model is missing or DeepEval/Claude fails. The valuation remains available.) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 658 Tm (/api/valuate marks the DeepEval result pending; POST /api/deepeval/evaluate runs the) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 645 Tm (metric separately. The standalone runner exits with a configuration message if the) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 632 Tm (required key or model is unavailable.) Tj ET
+BT /F2 13 Tf 1 0 0 1 50 612 Tm (Reproduce a live run) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 587 Tm (From the project root, configure a valid Anthropic API key locally in .env and run:) Tj ET
+BT /F3 8 Tf 1 0 0 1 50 560 Tm (python scripts/run_deepeval.py) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 535 Tm (The runner prints JSON containing the case count, metric name, per-case) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 522 Tm (inputs/scores/reasons, and mean score. It makes external Claude API requests and may incur) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 509 Tm (API usage charges. Do not commit .env; .gitignore excludes it.) Tj ET
+BT /F2 13 Tf 1 0 0 1 50 489 Tm (Implementation and test references) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 464 Tm (- Metric implementation: backend/app/evaluation/deepevalquality.py) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 451 Tm (- Standalone sample runner: scripts/rundeepeval.py) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 438 Tm (- Endpoint: POST /api/deepeval/evaluate) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 425 Tm (- Automated integration tests: tests/testdeepevalquality.py) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 405 Tm (The test suite verifies that the single configured GEval metric receives the expected) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 392 Tm (input, actual output, and retrieval context; that the threshold is 0.60; that the endpoint) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 379 Tm (returns score/verdict/reason; that valuation stays available when evaluation fails; and) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 366 Tm (that failures are reported as unavailable. These tests do not produce live DeepEval) Tj ET
+BT /F1 9 Tf 1 0 0 1 50 353 Tm (scores.) Tj ET
+BT /F1 8 Tf 1 0 0 1 50 24 Tm (DeepEval Evaluation Report | Page 2 of 2) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+9 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+xref
+0 10
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000127 00000 n 
+0000000273 00000 n 
+0000004589 00000 n 
+0000004735 00000 n 
+0000007284 00000 n 
+0000007354 00000 n 
+0000007429 00000 n 
+trailer
+<< /Size 10 /Root 1 0 R >>
+startxref
+7497
+%%EOF

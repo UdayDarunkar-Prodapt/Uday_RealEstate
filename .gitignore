@@ -1,7 +1,12 @@
 .venv/
 __pycache__/
 *.pyc
+# Local credentials/configuration: commit only the example template.
 .env
+.env.*
+!.env.example
+!.env.example.*
+.envrc
 database/*.db
 models/*.joblib
 data/*.csv

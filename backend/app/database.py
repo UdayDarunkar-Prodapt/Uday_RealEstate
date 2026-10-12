@@ -33,6 +33,24 @@ def save_feedback(item):
         return True
     except sqlite3.Error: return False
 
+def comparable_feedback_scores(min_votes=3):
+    """Return a small ranking prior from repeatedly rated valuation evidence."""
+    try:
+        with _connect() as c:
+            rows=c.execute("SELECT v.payload,f.rating FROM feedback f JOIN valuation_history v ON v.query_id=f.query_id WHERE f.query_id IS NOT NULL").fetchall()
+        totals={}
+        for payload,rating in rows:
+            try: properties=json.loads(payload).get('comparables',[])
+            except (TypeError,json.JSONDecodeError): continue
+            for prop in properties:
+                pid=prop.get('property_id')
+                if pid is None: continue
+                count,total=totals.get(int(pid),(0,0)); totals[int(pid)]=(count+1,total+int(rating))
+        # Keep feedback deliberately small; it can break close ranking ties, but
+        # cannot outweigh actual similarity or change a predicted price.
+        return {pid:(0.002*max(-1,min(1,total/count))) for pid,(count,total) in totals.items() if count>=min_votes}
+    except sqlite3.Error: return {}
+
 def save_evaluation(query_id, evaluation):
     try:
         with _connect() as c: c.execute("INSERT INTO evaluation_results(query_id,payload,timestamp) VALUES(?,?,?)", (query_id,json.dumps(evaluation),datetime.now(timezone.utc).isoformat()))

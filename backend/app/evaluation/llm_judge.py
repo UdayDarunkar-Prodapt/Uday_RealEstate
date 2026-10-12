@@ -2,13 +2,13 @@
 import json
 import time
 from urllib import request, error
-from ..config import OPENROUTER_API_KEY, PRIMARY_LLM_MODEL, FALLBACK_LLM_MODEL, LLM_TIMEOUT_SECONDS
+from ..config import ANTHROPIC_API_KEY, PRIMARY_LLM_MODEL, FALLBACK_LLM_MODEL, LLM_TIMEOUT_SECONDS
 
-JUDGE_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions"
+JUDGE_ENDPOINT = "https://api.anthropic.com/v1/messages"
 
 class LLMJudge:
     def configured(self):
-        return bool(OPENROUTER_API_KEY and PRIMARY_LLM_MODEL)
+        return bool(ANTHROPIC_API_KEY and PRIMARY_LLM_MODEL)
 
     def evaluate(self, valuation: dict) -> dict:
         """Judge the evidence-grounded explanation, with primary/fallback LLM and deterministic degradation."""
@@ -24,22 +24,36 @@ class LLMJudge:
         return self._deterministic(valuation, "LLM judge unavailable after configured fallback: " + "; ".join(errors))
 
     def _call(self, model, messages):
-        payload=json.dumps({"model":model,"messages":messages,"temperature":0,"response_format":{"type":"json_object"}}).encode()
+        payload=json.dumps({"model":model,"max_tokens":700,"temperature":0,"system":messages[0]["content"],"messages":messages[1:]}).encode()
         last=None
         for attempt in range(2):
-            req=request.Request(JUDGE_ENDPOINT,data=payload,headers={"Authorization":f"Bearer {OPENROUTER_API_KEY}","Content-Type":"application/json"},method="POST")
+            req=request.Request(JUDGE_ENDPOINT,data=payload,headers={"x-api-key":ANTHROPIC_API_KEY,"anthropic-version":"2023-06-01","Content-Type":"application/json"},method="POST")
             try:
                 with request.urlopen(req,timeout=LLM_TIMEOUT_SECONDS) as response:
                     data=json.loads(response.read().decode("utf-8"))
-                    return json.loads(data["choices"][0]["message"]["content"])
+                    content="".join(block.get("text","") for block in data["content"] if block.get("type")=="text")
+                    return self._parse_json(content)
             except (error.URLError, error.HTTPError, KeyError, json.JSONDecodeError) as exc:
                 last=exc
                 if attempt == 0: time.sleep(0.5)
         raise last
 
+    @staticmethod
+    def _parse_json(content):
+        """Parse a JSON object even when Claude wraps it in a code fence or prose."""
+        decoder=json.JSONDecoder()
+        for index,char in enumerate(content):
+            if char!="{": continue
+            try:
+                value,_=decoder.raw_decode(content[index:])
+            except json.JSONDecodeError:
+                continue
+            if isinstance(value,dict): return value
+        raise ValueError("Claude response did not contain a valid JSON object")
+
     def _messages(self, valuation):
         evidence=valuation.get("evidence", [])
-        facts={"predicted_value":valuation.get("predicted_value"),"valuation_range":valuation.get("valuation_range"),"confidence":valuation.get("confidence"),"risk_level":valuation.get("risk_level"),"retrieval":valuation.get("retrieval"),"risk_factors":valuation.get("risk_factors"),"evidence":evidence}
+        facts={"property_features":valuation.get("property_features"),"predicted_value":valuation.get("predicted_value"),"valuation_range":valuation.get("valuation_range"),"confidence":valuation.get("confidence"),"risk_level":valuation.get("risk_level"),"retrieval":valuation.get("retrieval"),"risk_factors":valuation.get("risk_factors"),"feature_impacts":valuation.get("feature_impacts"),"evidence":evidence}
         return [
             {"role":"system","content":"You are a strict evaluator, not a valuation agent. Assess ONLY whether EXPLANATION is grounded in FACTS. Never calculate or revise property values. Return JSON only: {groundedness: number 0..1, relevance: number 0..1, completeness: number 0..1, evidence_usage: number 0..1, reasoning_quality: number 0..1, verdict: string, unsupported_claims: [string]}. If no unsupported claims exist use []."},
             {"role":"user","content":"FACTS:\n"+json.dumps(facts,ensure_ascii=False)+"\nEXPLANATION:\n"+str(valuation.get("explanation",""))}

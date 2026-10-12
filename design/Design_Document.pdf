@@ -1,0 +1,619 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R] /Count 7 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 17 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 3077 >>
+stream
+BT /F1 10 Tf 48 752 Td 13 TL
+T*
+/F1 14 Tf (DESIGN DOCUMENT: AI-POWERED REAL ESTATE PROPERTY VALUATION ASSISTANT) Tj
+T*
+T*
+T*
+T*
+/F1 10 Tf (1. Problem statement) Tj
+T*
+T*
+T*
+/F1 10 Tf (Property valuation from an informal description is difficult to make consistent and) Tj
+T*
+/F1 10 Tf (  explain: facts may be incomplete, comparable sales are hard to locate, and a single) Tj
+T*
+/F1 10 Tf (  number hides uncertainty. This project addresses that workflow for historical Ames,) Tj
+T*
+/F1 10 Tf (  Iowa homes by extracting known property facts, finding similar recorded sales,) Tj
+T*
+/F1 10 Tf (  estimating a value, and presenting supporting evidence, uncertainty, feature impacts,) Tj
+T*
+/F1 10 Tf (  safeguards, and optional quality evaluations. It is a decision-support prototype, not) Tj
+T*
+/F1 10 Tf (  a professional appraisal or a current-market service.) Tj
+T*
+T*
+T*
+/F1 10 Tf (2. Requirements and boundaries) Tj
+T*
+T*
+T*
+/F1 10 Tf (The design supports natural-language and structured property input, comparable-property) Tj
+T*
+/F1 10 Tf (  retrieval, price estimation, uncertainty communication, feature impact explanations,) Tj
+T*
+/F1 10 Tf (  evaluation, and feedback. Numeric estimates come from the local regression pipeline or) Tj
+T*
+/F1 10 Tf (  a clearly labelled fallback. LLM and evaluator integrations may assess explanation) Tj
+T*
+/F1 10 Tf (  quality, but must not modify the numeric estimate. The system does not provide an) Tj
+T*
+/F1 10 Tf (  appraisal, guarantee, or causal analysis.) Tj
+T*
+T*
+T*
+/F1 10 Tf (3. System components) Tj
+T*
+T*
+T*
+/F1 10 Tf (- React/Vite frontend: separate dashboard sections for overview, valuation, related) Tj
+T*
+/F1 10 Tf (  properties, feature impacts, evidence, safeguards, explanation review, AI quality) Tj
+T*
+/F1 10 Tf (  evaluation, and feedback.) Tj
+T*
+/F1 10 Tf (- FastAPI service: typed request validation, valuation and retrieval routes,) Tj
+T*
+/F1 10 Tf (  health/configuration information, feedback persistence, and evaluation endpoints.) Tj
+T*
+/F1 10 Tf (- LangGraph workflow: shared valuation state is processed through property) Tj
+T*
+/F1 10 Tf (  interpretation, retrieval, prediction, risk/safeguard analysis, and response assembly.) Tj
+T*
+/F1 10 Tf (  Deterministic implementations remain available for optional integration failures.) Tj
+T*
+/F1 10 Tf (- Hybrid retrieval: normalized local sentence-transformers/all-MiniLM-L6-v2 embeddings) Tj
+T*
+/F1 10 Tf (  are stored in ChromaDB; rankbm25.BM25Okapi performs lexical search. Metadata filtering) Tj
+T*
+/F1 10 Tf (  constrains candidates and reciprocal-rank fusion combines the semantic and lexical) Tj
+T*
+/F1 10 Tf (  rankings.) Tj
+T*
+/F1 10 Tf (- Prediction and explanation: candidate tree regressors are selected by holdout MAE.) Tj
+T*
+/F1 10 Tf (  SHAP supplies feature impacts where available, with an explicitly labelled feature-) Tj
+T*
+/F1 10 Tf (  importance fallback. Comparable evidence supports uncertainty and fallback estimates.) Tj
+T*
+/F1 10 Tf (- Evaluation: optional Claude-based explanation judge and one DeepEval GEval metric,) Tj
+T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 17 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 3449 >>
+stream
+BT /F1 10 Tf 48 752 Td 13 TL
+/F1 10 Tf (  Property Recommendation Quality. Evaluation status, score, verdict, and reason are) Tj
+T*
+/F1 10 Tf (  displayed independently of numeric valuation.) Tj
+T*
+/F1 10 Tf (- Persistence: local SQLite records valuation history, feedback, and evaluation data) Tj
+T*
+/F1 10 Tf (  when available. Persistence failure does not disable valuation.) Tj
+T*
+T*
+T*
+/F1 10 Tf (4. Architecture design) Tj
+T*
+T*
+T*
+/F1 10 Tf (The architecture diagram shows the offline dataset/index-building path and the online) Tj
+T*
+/F1 10 Tf (  request path. Offline, each source row is prepared into a canonical property record,) Tj
+T*
+/F1 10 Tf (  rendered as one short text document, embedded, and stored in ChromaDB with structured) Tj
+T*
+/F1 10 Tf (  metadata. Online, a user request reaches the API, flows through LangGraph, and the) Tj
+T*
+/F1 10 Tf (  retrieval agent obtains evidence through filtered semantic and lexical search.) Tj
+T*
+/F1 10 Tf (  Retrieved comparables ground the deterministic valuation and explanation. Optional) Tj
+T*
+/F1 10 Tf (  Claude evaluation is separate from the numeric valuation. The API returns the response) Tj
+T*
+/F1 10 Tf (  to the React dashboard.) Tj
+T*
+T*
+/F1 10 Tf (The overall design separates data preparation, index creation, retrieval, regression,) Tj
+T*
+/F1 10 Tf (  explanation, and quality evaluation. The Chroma store is a retrieval index, not the) Tj
+T*
+/F1 10 Tf (  source of sale prices; the source CSV remains authoritative for training and) Tj
+T*
+/F1 10 Tf (  rebuilding.) Tj
+T*
+T*
+T*
+/F1 10 Tf (5. Technology selection) Tj
+T*
+T*
+T*
+/F1 10 Tf (| Technology | Role and reason for selection |) Tj
+T*
+/F1 10 Tf (|---|---|) Tj
+T*
+/F1 10 Tf (| Claude via Anthropic Messages API | Optional explanation-quality judge, selected) Tj
+T*
+/F1 10 Tf (  because the project uses a configurable Claude model for natural-language evaluation.) Tj
+T*
+/F1 10 Tf (  Claude is not the valuation model and does not create embeddings or revise calculated) Tj
+T*
+/F1 10 Tf (  values. If unavailable or unconfigured, deterministic validation is returned. |) Tj
+T*
+/F1 10 Tf (| sentence-transformers/all-MiniLM-L6-v2 | Local sentence encoder for short property) Tj
+T*
+/F1 10 Tf (  descriptions. It avoids a paid embedding API, can be cached and loaded once per) Tj
+T*
+/F1 10 Tf (  process, and produces normalized vectors suitable for cosine similarity. |) Tj
+T*
+/F1 10 Tf (| ChromaDB | Persistent local vector index with cosine distance and property metadata) Tj
+T*
+/F1 10 Tf (  filters; suitable for rebuilding and running this single-project dataset locally. |) Tj
+T*
+/F1 10 Tf (| rank-bm25 / BM25Okapi | Local lexical retrieval complements semantic similarity,) Tj
+T*
+/F1 10 Tf (  especially for explicit counts, neighborhood names, and exact terms. |) Tj
+T*
+/F1 10 Tf (| LangGraph | Expresses property interpretation, retrieval, valuation, risk, and) Tj
+T*
+/F1 10 Tf (  decision stages as a typed shared-state workflow with explicit ordering. |) Tj
+T*
+/F1 10 Tf (| FastAPI + Pydantic | Provides typed JSON APIs, request validation, generated OpenAPI) Tj
+T*
+/F1 10 Tf (  documentation, and clear HTTP validation errors. |) Tj
+T*
+/F1 10 Tf (| scikit-learn, pandas, NumPy | Tabular data preparation, candidate regression models,) Tj
+T*
+/F1 10 Tf (  metrics, and numeric feature processing. |) Tj
+T*
+/F1 10 Tf (| React + Vite | Builds the interactive dashboard and lets the user view valuation,) Tj
+T*
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 17 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 2735 >>
+stream
+BT /F1 10 Tf 48 752 Td 13 TL
+/F1 10 Tf (  evidence, safeguards, and evaluations in separate sections. |) Tj
+T*
+/F1 10 Tf (| SQLite | Lightweight local persistence for valuation history, feedback, and) Tj
+T*
+/F1 10 Tf (  evaluations without requiring a database service. |) Tj
+T*
+T*
+T*
+/F1 10 Tf (6. Retrieval strategy) Tj
+T*
+T*
+T*
+T*
+/F1 10 Tf (Record preparation and chunking) Tj
+T*
+T*
+T*
+/F1 10 Tf (The current source is structured tabular data, not long narrative documents.) Tj
+T*
+/F1 10 Tf (  Preprocessing canonicalizes source column names and quality ratings. Each property row) Tj
+T*
+/F1 10 Tf (  is rendered into one compact property description \(neighborhood, bedroom/bathroom) Tj
+T*
+/F1 10 Tf (  counts, area, year, quality, condition, and garage facts\) and retained as one) Tj
+T*
+/F1 10 Tf (  retrieval document. There is no text splitting or multi-chunk strategy in the current) Tj
+T*
+/F1 10 Tf (  implementation: one record maps to one document, one vector, and one property ID. This) Tj
+T*
+/F1 10 Tf (  keeps each result's facts attached to the correct sale record and avoids duplicate) Tj
+T*
+/F1 10 Tf (  chunks from the same home. If long documents are added later, chunk size and overlap) Tj
+T*
+/F1 10 Tf (  will need separate evaluation.) Tj
+T*
+T*
+T*
+/F1 10 Tf (Embeddings and stores) Tj
+T*
+T*
+T*
+/F1 10 Tf (The embedding model is sentence-transformers/all-MiniLM-L6-v2. It runs locally, is) Tj
+T*
+/F1 10 Tf (  loaded once per process through a cache, and encodes batches with normalized vectors.) Tj
+T*
+/F1 10 Tf (  ChromaDB stores vectors and metadata using cosine distance. A dataset and schema) Tj
+T*
+/F1 10 Tf (  fingerprint detects when the local collection needs rebuilding. BM25 uses tokenized) Tj
+T*
+/F1 10 Tf (  property descriptions as a separate lexical index.) Tj
+T*
+T*
+T*
+/F1 10 Tf (Search and fusion) Tj
+T*
+T*
+T*
+/F1 10 Tf (The query is first interpreted into structured property features and rendered as a) Tj
+T*
+/F1 10 Tf (  comparable query document. Neighborhood, year, bedroom, bath, room, living-area, and) Tj
+T*
+/F1 10 Tf (  lot-area filters are applied with progressive relaxation if too few candidates remain.) Tj
+T*
+/F1 10 Tf (  Semantic ranking comes from ChromaDB; if ChromaDB fails, cached local MiniLM vectors) Tj
+T*
+/F1 10 Tf (  are searched. Lexical ranking comes from BM25Okapi. Reciprocal-rank fusion \(RRF,) Tj
+T*
+/F1 10 Tf (  configured RRFK, default 60\) combines available rank lists. A property similarity) Tj
+T*
+/F1 10 Tf (  score and a small feedback prior then order the final comparable results. If MiniLM is) Tj
+T*
+/F1 10 Tf (  unavailable, retrieval degrades to BM25-only. The response exposes the retrieval) Tj
+T*
+/F1 10 Tf (  method and fallback state.) Tj
+T*
+T*
+T*
+ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 17 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 2872 >>
+stream
+BT /F1 10 Tf 48 752 Td 13 TL
+/F1 10 Tf (7. Agent design) Tj
+T*
+T*
+T*
+/F1 10 Tf (LangGraph defines a sequential StateGraph; each node reads the same evolving state) Tj
+T*
+/F1 10 Tf (  dictionary and returns its output fields. It is not a set of autonomous LLM agents) Tj
+T*
+/F1 10 Tf (  chatting with one another. Node roles are:) Tj
+T*
+T*
+/F1 10 Tf (1. Property classification agent: combines supplied fields with deterministic extraction) Tj
+T*
+/F1 10 Tf (  from the description, canonicalizes neighborhood aliases, and validates features.) Tj
+T*
+/F1 10 Tf (2. Comparable retrieval agent: queries the hybrid retriever and returns comparable) Tj
+T*
+/F1 10 Tf (  records plus filter/fallback metadata.) Tj
+T*
+/F1 10 Tf (3. Valuation agent: predicts with the selected regression model and generates SHAP) Tj
+T*
+/F1 10 Tf (  impacts \(or the explicit feature-importance fallback\); if prediction is unavailable,) Tj
+T*
+/F1 10 Tf (  uses a comparable-sale median.) Tj
+T*
+/F1 10 Tf (4. Risk/explainability agent: calculates confidence and uncertainty from completeness,) Tj
+T*
+/F1 10 Tf (  similarity, comparable price spread, and fallback flags, then identifies safeguards.) Tj
+T*
+/F1 10 Tf (5. Decision/insight agent: assembles the user-facing valuation, evidence, impacts, and) Tj
+T*
+/F1 10 Tf (  caveats.) Tj
+T*
+T*
+/F1 10 Tf (Communication is through typed shared state keys \(item, features, comparables,) Tj
+T*
+/F1 10 Tf (  retrieval, valuation, risk, result\) in a fixed edge order. The graph is invoked by the) Tj
+T*
+/F1 10 Tf (  valuation service. If LangGraph cannot initialize, the service calls the same stages) Tj
+T*
+/F1 10 Tf (  sequentially as a deterministic fallback. Claude is a separate post-valuation judge;) Tj
+T*
+/F1 10 Tf (  it is not one of these valuation graph nodes and cannot edit the estimate.) Tj
+T*
+T*
+T*
+/F1 10 Tf (8. Runtime data flow) Tj
+T*
+T*
+T*
+/F1 10 Tf (1. A user enters a description and any known features in the frontend.) Tj
+T*
+/F1 10 Tf (2. FastAPI validates input bounds and rejects instruction-like query content.) Tj
+T*
+/F1 10 Tf (3. The workflow extracts structured facts, then retrieves comparable properties with) Tj
+T*
+/F1 10 Tf (  filters, semantic search, BM25, and RRF.) Tj
+T*
+/F1 10 Tf (4. The prediction stage uses the trained model. If unavailable, a documented comparable-) Tj
+T*
+/F1 10 Tf (  based fallback may be used.) Tj
+T*
+/F1 10 Tf (5. Risk and explanation stages produce uncertainty, safeguards, evidence, and feature) Tj
+T*
+/F1 10 Tf (  impacts.) Tj
+T*
+/F1 10 Tf (6. The response is returned to the frontend and may be saved in SQLite.) Tj
+T*
+/F1 10 Tf (7. Optional LLM-as-Judge and DeepEval evaluations run separately and cannot change) Tj
+T*
+/F1 10 Tf (  price, range, or confidence.) Tj
+T*
+T*
+/F1 10 Tf (See architecture diagram and API reference.) Tj
+T*
+T*
+T*
+/F1 10 Tf (9. Data and artifacts) Tj
+T*
+T*
+T*
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 17 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 3655 >>
+stream
+BT /F1 10 Tf 48 752 Td 13 TL
+/F1 10 Tf (The training and retrieval input is data/AmesHousing.csv, OpenML dataset 43926.) Tj
+T*
+/F1 10 Tf (  SalePrice is the prediction target. Model features are configured in the backend;) Tj
+T*
+/F1 10 Tf (  GarageYrBlt is conditional on dataset availability. The source CSV, model bundle,) Tj
+T*
+/F1 10 Tf (  ChromaDB index, and SQLite store have separate roles. Preparation, training, and) Tj
+T*
+/F1 10 Tf (  embedding rebuild commands are documented in the README. See dataset details for) Tj
+T*
+/F1 10 Tf (  provenance, inspected snapshot profile, preprocessing, and limitations.) Tj
+T*
+T*
+T*
+/F1 10 Tf (10. API and frontend contract) Tj
+T*
+T*
+T*
+/F1 10 Tf (The core request model accepts a natural-language query and optional structured property) Tj
+T*
+/F1 10 Tf (  fields. /api/valuate returns the valuation and initial DeepEval pending state.) Tj
+T*
+/F1 10 Tf (  /api/deepeval/evaluate evaluates the submitted property and returns the one GEval) Tj
+T*
+/F1 10 Tf (  metric or an unavailable result. /api/search and /api/compare return comparable) Tj
+T*
+/F1 10 Tf (  evidence; /api/what-if returns model-based scenario estimates; /api/feedback persists) Tj
+T*
+/F1 10 Tf (  a rating when possible. Full endpoint and error details are in API documentation and) Tj
+T*
+/F1 10 Tf (  its PDF. OpenAPI is available at /docs when the service is running.) Tj
+T*
+T*
+T*
+/F1 10 Tf (11. Evaluation strategy) Tj
+T*
+T*
+T*
+/F1 10 Tf (- DeepEval: one GEval metric, Property Recommendation Quality, threshold 0.6. It) Tj
+T*
+/F1 10 Tf (  assesses whether the recommendation uses the input, grounds the estimate in historical) Tj
+T*
+/F1 10 Tf (  comparables, identifies uncertainty, and avoids unsupported or causal claims. The API) Tj
+T*
+/F1 10 Tf (  reports score, threshold verdict, and reason; if Claude or DeepEval fails, it reports) Tj
+T*
+/F1 10 Tf (  evaluation unavailable without breaking valuation.) Tj
+T*
+/F1 10 Tf (- RAGAS: not implemented. No RAGAS metrics or scores should be claimed for this project.) Tj
+T*
+/F1 10 Tf (- LLM-as-Judge: a separate Claude explanation judge returns groundedness, relevance,) Tj
+T*
+/F1 10 Tf (  completeness, evidence usage, reasoning quality, verdict, and unsupported claims. If) Tj
+T*
+/F1 10 Tf (  not configured or unavailable, deterministic checks are labelled as such; they are not) Tj
+T*
+/F1 10 Tf (  LLM scores.) Tj
+T*
+/F1 10 Tf (- Regression metrics: training compares candidate regressors by holdout MAE; the) Tj
+T*
+/F1 10 Tf (  training artifact also records MAE, RMSE, and R-squared \(R?\). These measure prediction) Tj
+T*
+/F1 10 Tf (  error/fit on the configured split, not live-market accuracy.) Tj
+T*
+/F1 10 Tf (- Retrieval evaluation: scripts/evaluateretrieval.py reports latency and number of) Tj
+T*
+/F1 10 Tf (  retrieved items on a real dataset query. The project has no labelled relevance set, so) Tj
+T*
+/F1 10 Tf (  it does not claim retrieval precision, recall, MAP, or nDCG.) Tj
+T*
+/F1 10 Tf (- Automated tests: tests/testcore.py covers extraction, prompt-like query rejection,) Tj
+T*
+/F1 10 Tf (  name-only rejection, and missing-information handling. tests/testretrieval.py covers) Tj
+T*
+/F1 10 Tf (  normalized embeddings, RRF, BM25 ranking, hybrid search, and semantic fallback.) Tj
+T*
+/F1 10 Tf (  tests/testdeepevalquality.py covers GEval adapter behavior, unavailable handling,) Tj
+T*
+/F1 10 Tf (  endpoint result, and pending valuation state. tests/testllmjudge.py covers response) Tj
+T*
+/F1 10 Tf (  parsing, configured Anthropic calls, and deterministic fallback.) Tj
+T*
+/F1 10 Tf (  tests/testexplainability.py covers feature-importance fallback.) Tj
+T*
+T*
+ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 17 0 R >> >> /Contents 14 0 R >>
+endobj
+14 0 obj
+<< /Length 3146 >>
+stream
+BT /F1 10 Tf 48 752 Td 13 TL
+T*
+/F1 10 Tf (12. Challenges and trade-offs) Tj
+T*
+T*
+T*
+/F1 10 Tf (- The Ames data is historical and geographically narrow; the model is not suitable for) Tj
+T*
+/F1 10 Tf (  current market valuation or other regions without representative data and retraining.) Tj
+T*
+/F1 10 Tf (- Structured row-level documents make retrieval auditable and avoid arbitrary text) Tj
+T*
+/F1 10 Tf (  chunks, but they do not support full-text property reports. Long documents would need) Tj
+T*
+/F1 10 Tf (  a chunking policy and deduplication.) Tj
+T*
+/F1 10 Tf (- MiniLM and local Chroma reduce embedding-service cost and keep vectors local, with) Tj
+T*
+/F1 10 Tf (  trade-offs in download time, local memory, and model quality compared with larger) Tj
+T*
+/F1 10 Tf (  hosted encoders.) Tj
+T*
+/F1 10 Tf (- Semantic retrieval handles paraphrases while BM25 is strong for exact tokens; RRF) Tj
+T*
+/F1 10 Tf (  avoids calibrating incomparable raw scores but may not be optimal without labelled) Tj
+T*
+/F1 10 Tf (  relevance judgments.) Tj
+T*
+/F1 10 Tf (- Strict metadata filters improve comparability but can return too few records.) Tj
+T*
+/F1 10 Tf (  Progressive relaxation improves coverage and is surfaced as a safeguard, at the cost) Tj
+T*
+/F1 10 Tf (  of less exact matches.) Tj
+T*
+/F1 10 Tf (- A tree-regression model is efficient for tabular features and explainable through) Tj
+T*
+/F1 10 Tf (  SHAP, but its estimates reflect historical correlations and dataset bias. Feature) Tj
+T*
+/F1 10 Tf (  impacts are descriptive model explanations, not causal effects.) Tj
+T*
+/F1 10 Tf (- External Claude/DeepEval calls add latency, network dependence, and provider cost.) Tj
+T*
+/F1 10 Tf (  Evaluations are optional and isolated from the price estimate; failures must remain) Tj
+T*
+/F1 10 Tf (  visible rather than being represented as successful LLM judgments.) Tj
+T*
+/F1 10 Tf (- Incomplete descriptions require median imputation. The UI surfaces incompleteness and) Tj
+T*
+/F1 10 Tf (  uncertainty because imputation cannot recover facts that were never supplied.) Tj
+T*
+T*
+T*
+/F1 10 Tf (13. Reliability and safeguards) Tj
+T*
+T*
+T*
+/F1 10 Tf (- Input validation returns HTTP 422 for invalid values or unsupported property changes.) Tj
+T*
+/F1 10 Tf (- Chroma/embedding/model availability is reported by health endpoints and deterministic) Tj
+T*
+/F1 10 Tf (  retrieval or valuation fallbacks are used where implemented.) Tj
+T*
+/F1 10 Tf (- Optional LLM and DeepEval failures are reported as unavailable or deterministic) Tj
+T*
+/F1 10 Tf (  evaluation status; valuation remains available.) Tj
+T*
+/F1 10 Tf (- Missing values are imputed with training medians where required.) Tj
+T*
+/F1 10 Tf (- Comparables and uncertainty are historical evidence. Explanations avoid unsupported) Tj
+T*
+/F1 10 Tf (  causal interpretation.) Tj
+T*
+/F1 10 Tf (- The LLM receives calculated valuation context for explanation review and cannot author) Tj
+T*
+/F1 10 Tf (  numeric prediction fields.) Tj
+T*
+T*
+T*
+/F1 10 Tf (14. Local operation) Tj
+T*
+T*
+T*
+/F1 10 Tf (Install backend dependencies, prepare/train data if artifacts need rebuilding, run the) Tj
+T*
+ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 17 0 R >> >> /Contents 16 0 R >>
+endobj
+16 0 obj
+<< /Length 768 >>
+stream
+BT /F1 10 Tf 48 752 Td 13 TL
+/F1 10 Tf (  embedding build script, start FastAPI, then start the Vite frontend. The README) Tj
+T*
+/F1 10 Tf (  contains exact PowerShell commands. The environment file may configure the Anthropic) Tj
+T*
+/F1 10 Tf (  key for optional judge functionality; embedding inference remains local and does not) Tj
+T*
+/F1 10 Tf (  use a paid embedding API.) Tj
+T*
+T*
+T*
+/F1 10 Tf (15. Verification) Tj
+T*
+T*
+T*
+/F1 10 Tf (The repository includes backend tests under tests/. Run python -m pytest from the) Tj
+T*
+/F1 10 Tf (  project root to exercise the implemented behavior. Rebuild the two PDF deliverables) Tj
+T*
+/F1 10 Tf (  with python scripts/buildarchitecturepdf.py and python) Tj
+T*
+/F1 10 Tf (  scripts/builddesigndocumentpdf.py.) Tj
+T*
+ET
+endstream
+endobj
+17 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 18
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000160 00000 n 
+0000000287 00000 n 
+0000003416 00000 n 
+0000003543 00000 n 
+0000007044 00000 n 
+0000007171 00000 n 
+0000009958 00000 n 
+0000010086 00000 n 
+0000013011 00000 n 
+0000013140 00000 n 
+0000016848 00000 n 
+0000016977 00000 n 
+0000020176 00000 n 
+0000020305 00000 n 
+0000021125 00000 n 
+trailer
+<< /Size 18 /Root 1 0 R >>
+startxref
+21196
+%%EOF

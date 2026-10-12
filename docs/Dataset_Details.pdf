@@ -1,0 +1,120 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 7 0 R /F2 8 0 R /F3 9 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 4550 >>
+stream
+BT /F2 19 Tf 1 0 0 1 52 738.0 Tm (Dataset details) Tj ET
+BT /F2 14 Tf 1 0 0 1 52 702.0 Tm (Dataset name and source) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 673.0 Tm (Name: Ames Housing \(ameshousing, OpenML ID 43926\). It is associated with Dean De Cock's) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 660.0 Tm (Ames, Iowa housing dataset and was published for data-science education. Source/link: OpenML) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 647.0 Tm (dataset search, ID 43926 \(https://www.openml.org/search?id=43926&sort=runs&type=data\).) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 628.0 Tm (Data format: comma-separated UTF-8 CSV at data/AmesHousing.csv, with one property sale per) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 615.0 Tm (row and columns for sale price, property characteristics, and neighborhood. The inspected) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 602.0 Tm (local snapshot contains 2,930 rows and 81 columns.) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 583.0 Tm (Purpose in this project: supervised regression learns historical sale-price patterns;) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 570.0 Tm (property-row documents and metadata support semantic/lexical retrieval of comparable sales.) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 557.0 Tm (The retrieved records ground the estimate and the UI's evidence section.) Tj ET
+BT /F2 14 Tf 1 0 0 1 52 538.0 Tm (Local snapshot profile) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 509.0 Tm (The checked-in local file is data/AmesHousing.csv. Its inspected snapshot contains 2,930) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 496.0 Tm (rows and 81 columns. The target SalePrice has no missing values in this file; the observed) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 483.0 Tm (minimum is $12,789, median $160,000, and maximum $755,000. YearBuilt spans 1872-2010 and) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 470.0 Tm (Neighborhood has 28 distinct values. All model input columns used by the current training) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 457.0 Tm (configuration were present and had no missing values in this snapshot. The dataset as a) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 444.0 Tm (whole contains missing values in other descriptive columns.) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 425.0 Tm (The upstream OpenML dataset description and this repository's local CSV are separate) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 412.0 Tm (provenance facts. The application trains and builds retrieval from the local file, and) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 399.0 Tm (scripts/preparedata.py can fetch and normalize the OpenML source when preparing a fresh) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 386.0 Tm (copy.) Tj ET
+BT /F2 14 Tf 1 0 0 1 52 367.0 Tm (Key fields) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 338.0 Tm (Target: SalePrice \(historical sale price in US dollars\).) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 319.0 Tm (Field   |   Project use) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 307.0 Tm (---  |  ---) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 295.0 Tm (SalePrice   |   Supervised target; historical sale price in US dollars.) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 283.0 Tm (OverallQual, OverallCond   |   Overall property quality and condition ratings.) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 271.0 Tm (GrLivArea, TotalBsmtSF, LotArea   |   Living area, basement area, and lot area in square) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 259.0 Tm (feet.) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 247.0 Tm (GarageCars, GarageArea   |   Garage capacity and garage area.) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 235.0 Tm (YearBuilt, YearRemodAdd   |   Construction and remodeling years.) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 223.0 Tm (FullBath, BedroomAbvGr, TotRmsAbvGrd   |   Bathroom, bedroom, and room counts.) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 211.0 Tm (Neighborhood   |   Location filtering, comparable context, and historical neighborhood) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 199.0 Tm (comparison.) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 187.0 Tm (GarageYrBlt   |   Optional model feature only if supplied by a dataset variant; absent in) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 175.0 Tm (the current local CSV.) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 157.0 Tm (The configured numeric model features are OverallQual, OverallCond, GrLivArea, TotalBsmtSF,) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 144.0 Tm (GarageCars, GarageArea, YearBuilt, YearRemodAdd, FullBath, BedroomAbvGr, TotRmsAbvGrd, and) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 131.0 Tm (LotArea. Neighborhood is used for comparable filtering and location evidence, not as a) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 118.0 Tm (numeric training feature.) Tj ET
+BT /F2 14 Tf 1 0 0 1 52 99.0 Tm (Preprocessing performed) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 70.0 Tm (scripts/preparedata.py loads OpenML ID 43926 and performs these transformations:) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 24 Tm (data details  |  Page 1 of 2) Tj ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 7 0 R /F2 8 0 R /F3 9 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 2962 >>
+stream
+BT /F1 9 Tf 1 0 0 1 52 738.0 Tm (1. Renames source columns to canonical application names \(for example SalePrice to) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 725.0 Tm (SalePrice, GrLivArea to GrLivArea\).) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 712.0 Tm (2. Converts ordered quality labels to ordinal values 1 through 10.) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 699.0 Tm (3. Writes the normalized frame to data/AmesHousing.csv.) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 680.0 Tm (During model fitting, scripts/trainmodel.py converts configured model inputs to numeric) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 667.0 Tm (values, calculates medians from training data, and fills missing input values with those) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 654.0 Tm (medians. It evaluates configured Random Forest and Extra Trees candidates on an 80/20 split) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 641.0 Tm (\(randomstate=42\), selects by lowest MAE, then refits the selected model on all usable) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 628.0 Tm (records. The model bundle stores its feature names, medians, estimator, and holdout metrics.) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 615.0 Tm (The current local file has no missing values in the target or configured model input) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 602.0 Tm (columns; other descriptive columns do contain missing values.) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 583.0 Tm (The canonical property document builder converts each row into one compact text document; it) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 570.0 Tm (does not split a row into multiple chunks. The embedding/index build stores that text and) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 557.0 Tm (the structured fields as vector and metadata records in ChromaDB. Training and retrieval are) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 544.0 Tm (historical supervised/search tasks; neither establishes causal effects.) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 525.0 Tm (The retrieval index derives property documents and metadata from this same dataset. Local) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 512.0 Tm (sentence-transformer embeddings are normalized and persisted in ChromaDB. BM25Okapi provides) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 499.0 Tm (lexical ranking; RRF combines it with semantic ranking.) Tj ET
+BT /F2 14 Tf 1 0 0 1 52 480.0 Tm (Limits and intended use) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 451.0 Tm (These are historical Ames, Iowa transactions, not current listings or a nationally) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 438.0 Tm (representative market sample. Values reflect the source dataset's collection period and) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 425.0 Tm (should be treated as model estimates, not appraisals, guarantees, or causal claims.) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 412.0 Tm (Neighborhood and comparable evidence are specific to the available historical records.) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 399.0 Tm (Retraining from another dataset snapshot can change model scores, predictions, and retrieval) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 386.0 Tm (results.) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 24 Tm (data details  |  Page 2 of 2) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+9 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+xref
+0 10
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000127 00000 n 
+0000000273 00000 n 
+0000004875 00000 n 
+0000005021 00000 n 
+0000008035 00000 n 
+0000008105 00000 n 
+0000008180 00000 n 
+trailer
+<< /Size 10 /Root 1 0 R >>
+startxref
+8248
+%%EOF

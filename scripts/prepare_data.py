@@ -10,7 +10,7 @@ CANONICAL_COLUMNS = {
     'Sale_Price':'SalePrice', 'Overall_Qual':'OverallQual', 'Overall_Cond':'OverallCond',
     'Gr_Liv_Area':'GrLivArea', 'Total_Bsmt_SF':'TotalBsmtSF', 'Garage_Cars':'GarageCars',
     'Garage_Area':'GarageArea', 'Year_Built':'YearBuilt', 'Year_Remod_Add':'YearRemodAdd',
-    'Full_Bath':'FullBath', 'Bedroom_AbvGr':'BedroomAbvGr', 'TotRms_AbvGrd':'TotRmsAbvGrd',
+    'Garage_Yr_Blt':'GarageYrBlt', 'Full_Bath':'FullBath', 'Bedroom_AbvGr':'BedroomAbvGr', 'TotRms_AbvGrd':'TotRmsAbvGrd',
     'Lot_Area':'LotArea'
 }
 ORDINAL_QUALITY = {

@@ -1,0 +1,273 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R] /Count 5 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 13 0 R /F2 14 0 R /F3 15 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 4445 >>
+stream
+BT /F2 19 Tf 1 0 0 1 52 738.0 Tm (API documentation) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 702.0 Tm (Base URL for local development: http://localhost:8000. Interactive OpenAPI docs are at) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 689.0 Tm (/docs; the schema is at /openapi.json. All request bodies and JSON responses use) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 676.0 Tm (application/json unless noted. Examples below are representative; model values and dataset) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 663.0 Tm (status vary by runtime.) Tj ET
+BT /F2 14 Tf 1 0 0 1 52 644.0 Tm (Shared property request format) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 615.0 Tm (PropertyInput fields are optional. Supply a natural-language query, structured values, or) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 602.0 Tm (both. A valuation still requires at least one recognizable property detail. Omitted input) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 589.0 Tm (values may be extracted from the query or imputed using training medians.) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 570.0 Tm (Field   |   JSON type and constraints) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 558.0 Tm (---  |  ---) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 546.0 Tm (query   |   string, max 1,200 characters, default ""; instruction-like text is rejected) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 534.0 Tm (neighborhood   |   string, max 60, valid place-name characters) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 522.0 Tm (OverallQual, OverallCond   |   integer, 1-10) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 510.0 Tm (GrLivArea   |   number, 100-20,000) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 498.0 Tm (TotalBsmtSF   |   number, 0-20,000) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 486.0 Tm (GarageCars   |   number, 0-10) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 474.0 Tm (GarageArea   |   number, 0-5,000) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 462.0 Tm (YearBuilt, YearRemodAdd   |   integer, 1800-2026) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 450.0 Tm (GarageYrBlt   |   number, 1800-2026) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 438.0 Tm (FullBath   |   number, 0-10) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 426.0 Tm (BedroomAbvGr   |   number, 0-20) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 414.0 Tm (TotRmsAbvGrd   |   number, 0-30) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 402.0 Tm (LotArea   |   number, 0-200,000) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 384.0 Tm (Shared example:) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 354.0 Tm ({"query":"3 bedroom home in NAmes, 1800 sq ft, built 2005, quality 7"}) Tj ET
+BT /F2 14 Tf 1 0 0 1 52 331.0 Tm (Endpoint index) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 302.0 Tm (Method   |   Endpoint   |   Request   |   Response) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 290.0 Tm (---  |  ---  |  ---  |  ---) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 278.0 Tm (GET   |   /api/health   |   None   |   Runtime status, persistence availability,) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 266.0 Tm (dataset/model/retrieval/workflow status.) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 254.0 Tm (GET   |   /api/config/status   |   None   |   LLM configuration status/model names and) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 242.0 Tm (runtime status; never returns keys.) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 230.0 Tm (GET   |   /api/model-info   |   None   |   Active feature names and runtime status.) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 218.0 Tm (POST   |   /api/valuate   |   PropertyInput   |   Full estimate, range, comparables,) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 206.0 Tm (evidence, impacts, safeguards, judge result, and DeepEval pending state.) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 194.0 Tm (POST   |   /api/search   |   PropertyInput   |   Parsed features, comparable properties,) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 182.0 Tm (retrieval metadata, status.) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 170.0 Tm (POST   |   /api/compare   |   PropertyInput   |   Same response as /api/search.) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 158.0 Tm (POST   |   /api/what-if   |   WhatIfIn below   |   Original and revised estimates,) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 146.0 Tm (difference, changed fields, caveat.) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 134.0 Tm (POST   |   /api/feedback   |   FeedbackIn below   |   {"status":"saved"} or HTTP 503 if) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 122.0 Tm (persistence fails.) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 110.0 Tm (POST   |   /api/evaluate   |   PropertyInput   |   Optional explanation judge object; does) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 98.0 Tm (not affect estimate.) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 86.0 Tm (POST   |   /api/deepeval/evaluate   |   PropertyInput   |   The single GEval evaluation) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 74.0 Tm (object or unavailable result.) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 24 Tm (API Documentation  |  Page 1 of 5) Tj ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 13 0 R /F2 14 0 R /F3 15 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 3890 >>
+stream
+BT /F2 14 Tf 1 0 0 1 52 738.0 Tm (GET endpoints) Tj ET
+BT /F2 11 Tf 1 0 0 1 52 709.0 Tm (`GET /api/health`) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 685.0 Tm (Request: no body.) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 666.0 Tm (Response format: status \(normally "ok"\), persistenceavailable boolean, plus datasetloaded,) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 653.0 Tm (modelloaded, chromaloaded, langgraphenabled, propertycount, and datasetpath.) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 634.0 Tm (Sample response \(paths and component availability depend on the machine\):) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 604.0 Tm ({"status":"ok","persistence_available":true,"dataset_loaded":true,"model_loaded":true,) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 593.0 Tm ("chroma_loaded":true,"langgraph_enabled":true,"property_count":2930,"dataset_path":"da) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 582.0 Tm (ta/AmesHousing.csv"}) Tj ET
+BT /F2 11 Tf 1 0 0 1 52 559.0 Tm (`GET /api/config/status`) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 535.0 Tm (Request: no body. Response includes externalllmconfigured boolean, llmprovider, configured) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 522.0 Tm (model names or null/empty values, and the same runtime status fields as /api/health. Secret) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 509.0 Tm (values are never returned.) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 479.0 Tm ({"external_llm_configured":false,"llm_provider":"anthropic","primary_llm_model":"claud) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 468.0 Tm (e-sonnet-4-6","fallback_llm_model":null,"dataset_loaded":true,"model_loaded":true,"chr) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 457.0 Tm (oma_loaded":true,"langgraph_enabled":true,"property_count":2930,"dataset_path":"data/A) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 446.0 Tm (mesHousing.csv"}) Tj ET
+BT /F2 11 Tf 1 0 0 1 52 423.0 Tm (`GET /api/model-info`) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 399.0 Tm (Request: no body. Response contains features \(array of active model feature names\) and) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 386.0 Tm (runtime status fields.) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 356.0 Tm ({"features":["OverallQual","OverallCond","GrLivArea","TotalBsmtSF","GarageCars","Garag) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 345.0 Tm (eArea","YearBuilt","YearRemodAdd","FullBath","BedroomAbvGr","TotRmsAbvGrd","LotArea"],) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 334.0 Tm ("dataset_loaded":true,"model_loaded":true,"chroma_loaded":true,"langgraph_enabled":tru) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 323.0 Tm (e,"property_count":2930,"dataset_path":"data/AmesHousing.csv"}) Tj ET
+BT /F2 14 Tf 1 0 0 1 52 300.0 Tm (POST endpoints) Tj ET
+BT /F2 11 Tf 1 0 0 1 52 271.0 Tm (`POST /api/valuate`) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 247.0 Tm (Request: shared PropertyInput JSON.) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 228.0 Tm (Success response format includes status, propertyfeatures, predictedvalue, valuationrange) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 215.0 Tm (\(lower, upper\), confidence, risklevel, riskfactors, valuationmethod, fallbackused,) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 202.0 Tm (fallbackreason, comparables \(array\), featureimpacts \(array\), retrieval, evidence \(array\),) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 189.0 Tm (explanation, evaluation \(LLM judge/deterministic result\), deepevalevaluation \(initially) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 176.0 Tm (pending\), and queryid \(integer or null\).) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 146.0 Tm ({) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 135.0 Tm (  "status":"success",) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 124.0 Tm (  "property_features":{"neighborhood":"North_Ames","BedroomAbvGr":3,"GrLivArea":1800,") Tj ET
+BT /F3 8 Tf 1 0 0 1 52 113.0 Tm (YearBuilt":2005,"OverallQual":7},) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 102.0 Tm (  "predicted_value":208313.0,) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 91.0 Tm (  "valuation_range":{"lower":187202.0,"upper":229425.0},) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 80.0 Tm (  "confidence":0.71,) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 69.0 Tm (  "risk_level":"MEDIUM",) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 24 Tm (API Documentation  |  Page 2 of 5) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 13 0 R /F2 14 0 R /F3 15 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 4972 >>
+stream
+BT /F3 8 Tf 1 0 0 1 52 738.0 Tm (  "risk_factors":[],) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 727.0 Tm (  "valuation_method":"model_with_comparables",) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 716.0 Tm (  "fallback_used":false,) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 705.0 Tm (  "fallback_reason":null,) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 694.0 Tm (  "comparables":[{"property_id":42,"SalePrice":205000,"Neighborhood":"North_Ames","sim) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 683.0 Tm (ilarity_score":81.2,"document":"Property in North_Ames neighborhood; ..."}],) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 672.0 Tm (  "feature_impacts":[{"feature":"OverallQual","impact":12000.0,"direction":"positive",) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 661.0 Tm ("method":"shap_tree_explainer"}],) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 650.0 Tm (  "retrieval":{"retrieval_mode":"chroma_bm25_rrf","fallback_used":false,"lexical_metho) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 639.0 Tm (d":"BM25Okapi","semantic_store":"ChromaDB"},) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 628.0 Tm (  "evidence":["Property in North_Ames neighborhood; ..."],) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 617.0 Tm (  "explanation":"Evidence-based estimate from historical comparable properties. This) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 606.0 Tm (is an estimate, not a guarantee.",) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 595.0 Tm (  "evaluation":{"groundedness":1.0,"relevance":1.0,"completeness":1.0,"evidence_usage") Tj ET
+BT /F3 8 Tf 1 0 0 1 52 584.0 Tm (:1.0,"reasoning_quality":null,"verdict":"Deterministic validation only; no LLM) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 573.0 Tm (judgment was produced.","unsupported_claims":[],"judge_method":"deterministic_judge_fa) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 562.0 Tm (llback","fallback_used":true},) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 551.0 Tm (  "deepeval_evaluation":{"status":"pending","metric_name":"Property Recommendation) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 540.0 Tm (Quality","score":null,"verdict":"Evaluation pending","reason":"DeepEval will run) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 529.0 Tm (separately so it cannot delay the valuation."},) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 518.0 Tm (  "query_id":12) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 507.0 Tm (}) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 484.0 Tm (The example is illustrative, not a guaranteed output. If valuation is unavailable because) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 471.0 Tm (the dataset is missing, response status is setuprequired with message and parsed) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 458.0 Tm (propertyfeatures.) Tj ET
+BT /F2 11 Tf 1 0 0 1 52 439.0 Tm (`POST /api/search`) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 415.0 Tm (Request: shared PropertyInput JSON. Response format: status, propertyfeatures, comparables,) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 402.0 Tm (retrieval, and optional message.) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 372.0 Tm ({"query":"3 bedroom home in NAmes, 1800 sq ft, built 2005"}) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 338.0 Tm ({"status":"success","property_features":{"neighborhood":"North_Ames","BedroomAbvGr":3,) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 327.0 Tm ("GrLivArea":1800,"YearBuilt":2005},"comparables":[{"property_id":42,"SalePrice":205000) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 316.0 Tm (,"Neighborhood":"North_Ames","similarity_score":81.2,"semantic_score":0.73,"bm25_score) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 305.0 Tm (":2.1,"document":"Property in North_Ames neighborhood; ..."}],"retrieval":{"exact_matc) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 294.0 Tm (h_count":18,"relaxed_match_count":0,"retrieval_mode":"chroma_bm25_rrf","fallback_used") Tj ET
+BT /F3 8 Tf 1 0 0 1 52 283.0 Tm (:false,"filters_applied":["neighborhood","YearBuilt","BedroomAbvGr","GrLivArea"],"sema) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 272.0 Tm (ntic_available":true,"lexical_method":"BM25Okapi","semantic_store":"ChromaDB"}}) Tj ET
+BT /F2 11 Tf 1 0 0 1 52 249.0 Tm (`POST /api/compare`) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 225.0 Tm (Request and response formats are identical to /api/search; this endpoint delegates to the) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 212.0 Tm (same comparable search operation.) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 182.0 Tm ({"query":"4 bedroom, 2 bath house in Old Town with 1600 sq ft"}) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 148.0 Tm ({"status":"success","property_features":{"neighborhood":"Old_Town","BedroomAbvGr":4,"F) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 137.0 Tm (ullBath":2,"GrLivArea":1600},"comparables":[{"property_id":58,"SalePrice":184000,"Neig) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 126.0 Tm (hborhood":"Old_Town","similarity_score":77.4,"semantic_score":0.69,"bm25_score":1.8,"d) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 115.0 Tm (ocument":"Property in Old_Town neighborhood; ..."}],"retrieval":{"exact_match_count":9) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 104.0 Tm (,"relaxed_match_count":0,"retrieval_mode":"chroma_bm25_rrf","fallback_used":false,"fil) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 93.0 Tm (ters_applied":["neighborhood","BedroomAbvGr","FullBath","GrLivArea"],"semantic_availab) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 82.0 Tm (le":true,"lexical_method":"BM25Okapi","semantic_store":"ChromaDB"}}) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 24 Tm (API Documentation  |  Page 3 of 5) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 13 0 R /F2 14 0 R /F3 15 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 3993 >>
+stream
+BT /F2 11 Tf 1 0 0 1 52 738.0 Tm (`POST /api/what-if`) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 714.0 Tm (Request format is an object containing a nested property \(PropertyInput\) and a changes) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 701.0 Tm (object. Allowed changes are the property fields other than query, and each value is) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 688.0 Tm (validated against its normal bounds.) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 658.0 Tm ({"property":{"query":"3 bedroom home in) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 647.0 Tm (NAmes","OverallQual":6},"changes":{"OverallQual":8,"GrLivArea":1900}}) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 624.0 Tm (Success response format: status, originalprediction, newprediction, difference,) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 611.0 Tm (changedfeatures, and a non-causal note.) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 581.0 Tm ({"status":"success","original_prediction":198500.0,"new_prediction":224100.0,"differen) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 570.0 Tm (ce":25600.0,"changed_features":{"OverallQual":8,"GrLivArea":1900},"note":"Model-based) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 559.0 Tm (scenario estimate; it is not a causal effect."}) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 536.0 Tm (If the original property cannot be valued, the underlying valuation result is returned.) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 523.0 Tm (Invalid or unsupported change fields yield HTTP 422.) Tj ET
+BT /F2 11 Tf 1 0 0 1 52 504.0 Tm (`POST /api/feedback`) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 480.0 Tm (Request format \(FeedbackIn\): optional integer/null queryid, required integer rating in) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 467.0 Tm (-1..1, optional string comment up to 1,000 characters.) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 437.0 Tm ({"query_id":12,"rating":1,"comment":"The comparable homes were relevant."}) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 403.0 Tm ({"status":"saved"}) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 380.0 Tm (If SQLite persistence is unavailable, response is HTTP 503 with a detail message. Feedback) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 367.0 Tm (cannot change the numeric estimate; repeated votes can add a small comparable-ranking prior.) Tj ET
+BT /F2 11 Tf 1 0 0 1 52 348.0 Tm (`POST /api/evaluate`) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 324.0 Tm (Request: shared PropertyInput JSON. On successful valuation response format is status,) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 311.0 Tm (evaluation, and note. Evaluation contains five score fields \(groundedness, relevance,) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 298.0 Tm (completeness, evidenceusage, reasoningquality\), plus verdict, unsupportedclaims, judge) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 285.0 Tm (method/model, and fallback fields. Scores may be null when a deterministic check cannot) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 272.0 Tm (produce an LLM-only measure.) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 242.0 Tm ({"query":"3 bedroom home in NAmes, 1800 sq ft, built 2005"}) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 208.0 Tm ({"status":"success","evaluation":{"groundedness":0.9,"relevance":0.9,"completeness":0.) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 197.0 Tm (8,"evidence_usage":0.9,"reasoning_quality":0.8,"verdict":"Explanation is grounded in) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 186.0 Tm (supplied evidence.","unsupported_claims":[],"judge_method":"llm_as_judge","judge_model) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 175.0 Tm (":"claude-sonnet-4-6","fallback_used":false},"note":"LLM-as-Judge evaluates) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 164.0 Tm (explanation quality only; it never modifies the numeric valuation."}) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 141.0 Tm (When valuation is not successful, response has evaluation: null and the valuation) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 128.0 Tm (status/message.) Tj ET
+BT /F2 11 Tf 1 0 0 1 52 109.0 Tm (`POST /api/deepeval/evaluate`) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 85.0 Tm (Request: shared PropertyInput JSON. Runs the single GEval metric Property Recommendation) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 72.0 Tm (Quality \(threshold 0.6\); no other DeepEval metrics are implemented. Response format is outer) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 24 Tm (API Documentation  |  Page 4 of 5) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 13 0 R /F2 14 0 R /F3 15 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 1933 >>
+stream
+BT /F1 9 Tf 1 0 0 1 52 738.0 Tm (status plus evaluation with status, metricname, score \(0..1 or null\), verdict, and reason.) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 708.0 Tm ({"query":"3 bedroom home in NAmes, 1800 sq ft, built 2005"}) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 674.0 Tm ({"status":"success","evaluation":{"status":"success","metric_name":"Property) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 663.0 Tm (Recommendation Quality","score":0.82,"verdict":"Meets quality threshold","reason":"The) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 652.0 Tm (recommendation uses the property details and is grounded in the comparable) Tj ET
+BT /F3 8 Tf 1 0 0 1 52 641.0 Tm (evidence."}}) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 618.0 Tm (If DeepEval/API evaluation fails or a successful valuation is unavailable, the route returns) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 605.0 Tm (an unavailable evaluation with score: null, verdict: "Evaluation unavailable", and a reason;) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 592.0 Tm (valuation itself remains available.) Tj ET
+BT /F2 14 Tf 1 0 0 1 52 573.0 Tm (Common errors and availability) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 544.0 Tm (- 422 Unprocessable Entity: invalid JSON/schema values, property bounds, unsafe) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 531.0 Tm (instruction-like query, or unsupported what-if fields. FastAPI returns validation details.) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 518.0 Tm (- 503 Service Unavailable: feedback could not be persisted. Valuation remains available.) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 505.0 Tm (- Optional LLM and DeepEval failures are represented by evaluation fallback/unavailable) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 492.0 Tm (fields and do not replace or break numeric valuation.) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 479.0 Tm (- CORS permits the local Vite origin http://localhost:5173; deployment origins must be) Tj ET
+BT /F1 9 Tf 1 0 0 1 52 466.0 Tm (configured in backend/app/main.py.) Tj ET
+BT /F1 8 Tf 1 0 0 1 52 24 Tm (API Documentation  |  Page 5 of 5) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+14 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+15 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+xref
+0 16
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000146 00000 n 
+0000000295 00000 n 
+0000004792 00000 n 
+0000004941 00000 n 
+0000008883 00000 n 
+0000009032 00000 n 
+0000014056 00000 n 
+0000014206 00000 n 
+0000018252 00000 n 
+0000018403 00000 n 
+0000020389 00000 n 
+0000020460 00000 n 
+0000020536 00000 n 
+trailer
+<< /Size 16 /Root 1 0 R >>
+startxref
+20605
+%%EOF
