@@ -1,100 +1,345 @@
-﻿# AI-Powered Real Estate Property Valuation Assistant
+# AI-Powered Real Estate Property Valuation Assistant
 
-An explainable, local-first valuation microservice for the Ames Housing Dataset. It turns a natural-language property description into ranked historical comparables, a trained-model estimate (or transparent comparable fallback), uncertainty range, risk factors, feature impacts, and evidence.
+## 1. Project Overview
 
-## Mandatory deliverables
+The AI-Powered Real Estate Property Valuation Assistant is an intelligent application that estimates property prices using Machine Learning, Retrieval-Augmented Generation (RAG), hybrid search, and multi-agent orchestration.
 
-| Deliverable | File/location |
-|---|---|
-| Architecture diagram (PDF) | [Architecture diagram](docs/architecture.pdf), source [architecture.md](docs/architecture.md) |
-| Design document (PDF) | [Design document](docs/design_document.pdf), source [design_document.md](docs/design_document.md) |
-| Complete source code | Backend `backend/`, frontend `frontend/`, scripts `scripts/`, tests `tests/` |
-| README | This file |
-| API documentation | [API reference PDF](docs/API_Documentation.pdf) and [Markdown source](docs/API_Documentation.md), plus live Swagger at `/docs` |
-| Dataset details | [Dataset details PDF](docs/data_details.pdf) and [Markdown source](docs/data_details.md) |
-| DeepEval evaluation report | [DeepEval report PDF](docs/DeepEval_Evaluation_Report.pdf) and [Markdown source](docs/DeepEval_Evaluation_Report.md) |
+The system analyzes property characteristics, retrieves historically similar properties, predicts property prices, and provides explainable valuation recommendations. It also evaluates recommendation quality, estimates valuation risk and confidence, and supports user feedback.
 
-Regenerate the PDFs from the repository root:
+The application provides a React-based user interface and a FastAPI backend for interacting with the valuation pipeline.
 
-```powershell
-python scripts/build_architecture_pdf.py
-python scripts/build_design_document_pdf.py
-python scripts/build_reference_pdfs.py
-python scripts/build_deepeval_report_pdf.py
-```
+## 2. Problem Statement
 
-## Requirement mapping
+Real estate valuation involves analyzing multiple factors, including property size, construction year, overall quality, neighborhood, number of bedrooms, bathrooms, and garage facilities.
 
-| PDF requirement | Implementation | Demo/test |
+Manually identifying comparable properties and understanding how these features influence property prices can be time-consuming. Traditional prediction models may also provide numerical estimates without sufficient supporting evidence or explanations.
+
+Therefore, an intelligent system is needed to retrieve relevant historical property records, predict property values, explain the factors influencing predictions, and provide evidence-based recommendations.
+
+## 3. Business Objective
+
+The primary objective is to simplify property valuation by combining Machine Learning predictions with historical comparable-property evidence.
+
+The key objectives are:
+
+- Estimate property prices using historical housing data.
+- Retrieve similar properties using semantic and keyword-based search.
+- Prioritize relevant comparable properties using metadata filtering and ranking.
+- Explain predictions using SHAP feature contributions.
+- Analyze historical neighborhood pricing context.
+- Estimate valuation confidence, risk, and a reasonable price range.
+- Validate generated recommendations using an LLM-as-Judge and DeepEval.
+- Provide a user-friendly interface for property analysis.
+- Incorporate user feedback to improve comparable-property ranking.
+
+## 4. Solution Summary
+
+The system uses the Ames Housing Dataset to train a property valuation model and build a searchable collection of historical property records.
+
+The solution follows these steps:
+
+1. **Property Input:** Users enter property characteristics through the React frontend.
+2. **API and Validation:** FastAPI receives the request and validates the input using validation rules and guardrails.
+3. **Multi-Agent Workflow:** LangGraph orchestrates the property classification, retrieval, valuation, risk analysis, and decision stages.
+4. **Hybrid Retrieval:** Sentence Transformer embeddings and ChromaDB support semantic search, while BM25Okapi supports keyword-based retrieval.
+5. **Result Ranking:** Reciprocal Rank Fusion (RRF) combines retrieval rankings to prioritize comparable properties.
+6. **Price Prediction:** A trained Random Forest regression model predicts the property value, supported by comparable-property evidence.
+7. **Explainability:** SHAP explains how individual features influence the model prediction.
+8. **Risk and Confidence:** The system assesses the quality and consistency of the available evidence and produces a valuation range and confidence assessment.
+9. **Recommendation Validation:** The LLM-as-Judge evaluates whether the recommendation is relevant and grounded in the available evidence. DeepEval is used to evaluate recommendation quality.
+10. **Feedback and History:** SQLite stores application history and user feedback, which can influence future comparable-property ranking.
+
+The system includes fallback mechanisms to maintain useful functionality when certain components are unavailable.
+
+## 5. Technology Stack
+
+| Component | Technology | Purpose |
 |---|---|---|
-| Semantic + hybrid similarity search | Chroma vectors, BM25Okapi, location/age/room/size metadata filters, RRF | `POST /api/search` |
-| Classification, guardrails, comparables | Pydantic bounds, instruction-pattern checks, feature extraction, progressive filter relaxation | `tests/test_core.py` |
-| Price/risk/feature/location analysis | selected regression model, evidence-based risk score, SHAP and historical location context | `/api/valuate` |
-| Multi-agent collaboration | LangGraph specialist stages share one typed state and evidence | [architecture diagram](docs/architecture.pdf) |
-| LLM judge and DeepEval | grounded judge plus DeepEval recommendation-quality runner | `scripts/run_deepeval.py` |
-| Feedback loop | SQLite ratings add a small comparable-ranking prior after three votes | `/api/feedback` and dashboard |
-| Microservice and frontend | FastAPI and React/Vite dashboard | commands below |
-| Architecture/design/panel | `docs/architecture.md`, `docs/design_document.md`, `docs/demo.md` | PDF diagrams and demo |
+| Programming Language | Python | Backend, ML, retrieval, and evaluation |
+| Frontend | React.js, Vite | User interface |
+| Backend API | FastAPI | API endpoints and request handling |
+| LLM | Claude via Anthropic API | LLM-as-Judge and recommendation validation |
+| Embedding Model | `sentence-transformers/all-MiniLM-L6-v2` | Generate semantic embeddings |
+| Vector Database | ChromaDB | Store and retrieve property embeddings |
+| Keyword Retrieval | BM25Okapi (`rank-bm25`) | Keyword-based document retrieval |
+| Ranking | Reciprocal Rank Fusion (RRF) | Combine semantic and keyword rankings |
+| ML Model | Random Forest Regressor | Property price prediction |
+| Explainability | SHAP | Explain model feature contributions |
+| Agent Orchestration | LangGraph | Coordinate valuation workflow stages |
+| Evaluation | DeepEval, GEval | Evaluate recommendation quality |
+| Persistence | SQLite | Store feedback and application history |
+| Data Processing | pandas, NumPy, scikit-learn | Data preparation and model development |
+| Testing | pytest | Backend and component testing |
 
-## Dataset and training
+## 6. Programming Language
 
-The project includes `data/AmesHousing.csv` (2,930 rows, 81 columns). OpenML ID 43926 is the upstream dataset source. `prepare_data.py` normalizes source fields and preserves `GarageYrBlt` when supplied; training includes it only when present. This local CSV lacks that field. See [dataset details](docs/data_details.md) for source attribution, inspected local data profile, preparation, and limitations.
+**Python** is the primary programming language for the backend and AI components.
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r backend/requirements.txt
-python scripts/prepare_data.py
-python scripts/train_model.py
-python scripts/build_embeddings.py
-uvicorn backend.app.main:app --reload
+It is used for:
+
+- Data preprocessing and feature engineering.
+- Training and evaluating the Random Forest regression model.
+- Semantic embeddings and hybrid retrieval.
+- API development using FastAPI.
+- Workflow orchestration using LangGraph.
+- Explainability using SHAP.
+- Recommendation evaluation using DeepEval.
+- Automated testing.
+
+**JavaScript** is used for the React frontend and Vite-based development environment.
+
+## 7. LLM Used
+
+The project uses **Claude through the Anthropic API** for LLM-based recommendation validation.
+
+The LLM-as-Judge evaluates the generated recommendation for factors such as:
+
+- Relevance to the user's property.
+- Grounding in the supplied comparable-property evidence.
+- Completeness of the recommendation.
+- Quality of reasoning.
+- Presence of unsupported claims.
+
+The application includes fallback handling when the primary LLM is unavailable.
+
+The LLM is not the primary numerical price prediction model. The Random Forest model performs the property price prediction.
+
+**Configuration:** The primary LLM model is configured through environment variables, using `claude-sonnet-4-6` as the documented default.
+
+## 8. Embedding Model
+
+The project uses:
+
+`sentence-transformers/all-MiniLM-L6-v2`
+
+This model converts property descriptions into numerical vector embeddings that represent semantic information.
+
+These embeddings enable the system to retrieve properties with similar characteristics, even when the query wording differs.
+
+Property descriptions can include:
+
+- Neighborhood.
+- Overall quality and condition.
+- Above-ground living area.
+- Basement area.
+- Construction and remodeling years.
+- Bedrooms and bathrooms.
+- Total rooms.
+- Garage characteristics.
+- Lot area.
+
+The target field `SalePrice` is kept separate from the embedding description to avoid introducing the target price directly into semantic retrieval.
+
+The embedding model runs locally after its initial download and caching, without requiring a paid embedding API.
+
+## 9. Vector Database
+
+**ChromaDB** is used as the vector database.
+
+It stores property descriptions, their embeddings, identifiers, and relevant metadata.
+
+The retrieval pipeline uses ChromaDB for semantic similarity search and combines its results with BM25 keyword retrieval.
+
+Metadata filters can narrow searches using available property characteristics such as neighborhood, construction year, rooms, and property size.
+
+The vector database can be rebuilt from the prepared property data using the project's embedding-building script when required.
+
+## 10. Frameworks and Libraries Used
+
+### AI and Machine Learning
+- scikit-learn
+- pandas
+- NumPy
+- SHAP
+- sentence-transformers
+
+### Retrieval and RAG
+- ChromaDB
+- rank-bm25
+- Reciprocal Rank Fusion (RRF)
+
+### LLM and Agent Workflow
+- LangGraph
+- Anthropic API
+- DeepEval
+
+### Backend and Database
+- FastAPI
+- Pydantic
+- SQLite
+
+### Frontend
+- React.js
+- Vite
+- npm
+
+### Testing and Evaluation
+- pytest
+- DeepEval GEval
+
+## 11. Installation Instructions
+
+### Prerequisites
+
+Install the following:
+
+- Python 3.12 or a compatible version supported by the project's dependencies.
+- Node.js and npm.
+- Git (optional, for cloning the repository).
+- An Anthropic API key for LLM-based evaluation.
+
+### Step 1: Obtain the Project
+
+Clone the repository or download and extract the project ZIP.
+
+```bash
+git clone <YOUR_GITHUB_REPOSITORY_URL>
+cd <YOUR_PROJECT_DIRECTORY>
 ```
 
-In a second terminal:
+If using the ZIP, open a terminal in the extracted project directory instead.
 
-```powershell
+### Step 2: Create a Python Virtual Environment
+
+On Windows:
+
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+```
+
+On macOS/Linux:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+### Step 3: Install Python Dependencies
+
+If `requirements.txt` is in the project root:
+
+```bash
+pip install -r requirements.txt
+```
+
+If the file is inside `backend/`, run:
+
+```bash
+pip install -r backend/requirements.txt
+```
+
+Use the dependency file included in the repository.
+
+### Step 4: Configure Environment Variables
+
+Create a `.env` file in the directory expected by the backend configuration.
+
+Add the required variables, for example:
+
+```env
+ANTHROPIC_API_KEY=your_anthropic_api_key
+PRIMARY_LLM_MODEL=claude-sonnet-4-6
+DEEPEVAL_MODEL=claude-sonnet-4-6
+```
+
+Replace the placeholder with your own valid API key.
+
+**Security:** Never commit `.env` to GitHub. Commit `.env.example` with placeholder values instead.
+
+### Step 5: Prepare the Dataset and Model
+
+Ensure that the Ames Housing Dataset is present in the expected `data/` directory.
+
+If the trained model is not included, run the model training script:
+
+```bash
+python scripts/train_model.py
+```
+
+If the ChromaDB index is not included, build the embeddings and vector index:
+
+```bash
+python scripts/build_embeddings.py
+```
+
+Run these commands from the directory expected by the scripts. Check their arguments or the README instructions if your project uses a different working directory.
+
+### Step 6: Start the FastAPI Backend
+
+Run the backend using the module path configured in the project. For example, if `app/main.py` is inside `backend/`:
+
+```bash
+cd backend
+uvicorn app.main:app --reload
+```
+
+The API is typically available at:
+
+`http://127.0.0.1:8000`
+
+FastAPI interactive API documentation is available at:
+
+`http://127.0.0.1:8000/docs`
+
+### Step 7: Start the React Frontend
+
+Open a second terminal and navigate to the frontend directory:
+
+```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-Then open `http://localhost:5173`; API docs are at `http://localhost:8000/docs`.
+Open the local URL printed by Vite in the terminal.
 
-`sentence-transformers` downloads `sentence-transformers/all-MiniLM-L6-v2` the first time the local index is built. The model then runs locally and is cached; no embedding API or OpenAI key is used. Rebuild Chroma after changing the dataset or embedding model with:
+Ensure the frontend API configuration points to the running FastAPI backend.
 
-```powershell
-python scripts/build_embeddings.py
-```
+## 12. Environment Setup
 
-## API
+The application uses environment variables to configure API credentials and LLM behavior.
 
-`POST /api/valuate`, `/api/search`, `/api/compare`, `/api/what-if`, `/api/feedback`, `/api/evaluate`, `/api/deepeval/evaluate`; `GET /api/health`, `/api/model-info`, `/api/config/status`. See [API documentation](docs/API_Documentation.md) or its [PDF](docs/API_Documentation.pdf) for payloads and response behavior.
+| Variable | Purpose |
+|---|---|
+| `ANTHROPIC_API_KEY` | Authentication for the Anthropic API |
+| `PRIMARY_LLM_MODEL` | Primary LLM used by the application |
+| `DEEPEVAL_MODEL` | Model used for DeepEval-based evaluation |
 
-Example:
+The values above reflect the documented project configuration. Check the backend configuration files for any additional required variables.
 
-```json
-{"query":"3 bedroom, 2 bathroom home in NAmes with 1800 sq ft, built 2005, quality 7"}
-```
+### Environment Setup Best Practices
 
-With the included Ames dataset and trained model, that query currently returns an estimated **$208,313**, a **$187,202-$229,425** range, and five North Ames comparables. Values can change if the dataset or model is rebuilt. The response also includes the historical neighborhood median difference and whether any filters were relaxed; the location difference is descriptive, not causal.
+- Keep credentials in `.env`.
+- Add `.env` to `.gitignore`.
+- Provide `.env.example` for other developers.
+- Never hardcode API keys in Python or JavaScript source files.
+- Do not commit virtual environments, dependency caches, or generated database files unnecessarily.
+- Keep the dataset, model artifacts, and scripts required to run the application.
+- Rebuild generated embeddings when the vector database is not included.
 
-## LLM-as-Judge setup
+## 13. Evaluation and Testing
 
-Add your Anthropic Console API key to the project root `.env`. The valuation API uses Claude Sonnet 4.6 as the default judge model; you can override it or configure a fallback model:
+The project includes testing and evaluation components.
 
-```dotenv
-ANTHROPIC_API_KEY=your_anthropic_key_here
-PRIMARY_LLM_MODEL=claude-sonnet-4-6
-FALLBACK_LLM_MODEL=
-DEEPEVAL_MODEL=claude-sonnet-4-6
-```
+- **Model evaluation:** Assess the regression model using appropriate regression metrics.
+- **Retrieval evaluation:** Check the relevance and ranking of retrieved comparable properties.
+- **LLM-as-Judge:** Validate generated recommendations against evidence and reasoning criteria.
+- **DeepEval GEval:** Evaluate property recommendation quality using defined criteria.
+- **Automated tests:** Use pytest to test core functionality, retrieval, explainability, and judge behavior.
 
-The `/api/valuate` and `/api/evaluate` endpoints call Anthropic's Messages API when `ANTHROPIC_API_KEY` is set. The judge scores groundedness, relevance, completeness, evidence usage, and reasoning quality for the explanation. It receives only calculated valuation facts and retrieved evidence, validates the returned JSON, retries once, then tries the optional fallback model. A judge outage produces a clearly labelled deterministic validation fallback and never alters price, range, confidence, or risk. Check `/api/config/status` for `external_llm_configured: true`; restart the backend after editing `.env`. `python scripts/run_deepeval.py` also uses the Claude key and runs DeepEval's recommendation-quality metric on live sample valuations. Claude API usage is billed by Anthropic; embeddings remain local and do not use Claude or an embedding API.
+DeepEval evaluates recommendation quality; it does not train the Random Forest model or directly predict property prices.
 
-## Design notes
+## 14. Limitations
 
-Hybrid retrieval uses normalized `sentence-transformers/all-MiniLM-L6-v2` embeddings in Chroma's persistent cosine index and `BM25Okapi` for lexical ranking, then combines both ranked lists with reciprocal-rank fusion before property-aware comparable scoring. It filters by neighborhood, year, bedrooms, bathrooms, rooms, and living/lot area, progressively relaxing constraints when evidence is sparse. If Chroma is unavailable, MiniLM semantic search runs locally against cached document vectors; if MiniLM itself cannot load, BM25 remains as the final retrieval fallback. Repeated feedback can only make a small ranking adjustment after three ratings; it never changes valuation numbers. Candidate regressors are evaluated on a holdout split and the lowest-MAE model is saved; no `SalePrice` is included as a feature. Risk is an evidence-based score built from match quality, input completeness, model availability, and comparable price spread, not a separate trained risk model.
+- The model is trained using the Ames Housing Dataset, which represents a specific US housing market and may not generalize directly to other regions.
+- Valuation quality depends on the dataset, feature quality, model performance, and relevance of retrieved comparables.
+- The confidence and risk assessments are evidence-based heuristics rather than calibrated probabilities from a separately trained risk model.
+- Historical neighborhood price differences are descriptive and should not be interpreted as causal effects.
+- LLM-based evaluation requires appropriate configuration and may incur API costs.
 
-SHAP is used automatically for per-valuation feature impacts through `shap.TreeExplainer` when installed. The response also includes an observed neighborhood sale-price median difference when location is known, clearly labelled descriptive rather than causal. If SHAP cannot run, the response labels its deterministic feature-importance fallback. ChromaDB and LangGraph are optional dependencies: when present, Chroma checks and rebuilds its local index on service startup, and LangGraph runs the specialist workflow. Their status is exposed by `/api/health`; without them, deterministic local retrieval and pipeline fallbacks remain available. An LLM is never allowed to alter numerical results and is not invoked without credentials.
+## 15. Conclusion
 
-Run checks with `python -m pytest`. Evaluation scripts report only measurements they actually calculate. See [architecture](docs/architecture.md) and [demo](docs/demo.md) for the system flow and presentation sequence.
+The AI-Powered Real Estate Property Valuation Assistant combines machine learning, hybrid RAG, multi-agent workflow orchestration, explainability, and recommendation evaluation in a single application.
+
+By combining numerical price prediction with historical comparable-property evidence and feature-level explanations, the system provides a more transparent and evidence-informed property valuation workflow.
